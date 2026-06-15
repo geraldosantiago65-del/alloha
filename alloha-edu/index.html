@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alloha Edu — Educação, Direitos e Informação</title>
+  <meta name="description" content="Portal de educação antirracista com cursos gratuitos, notícias da Revista Global, portal CRPIR e agenda de eventos.">
+  <meta name="theme-color" content="#1C1917">
+  <meta property="og:title" content="Alloha Edu">
+  <meta property="og:description" content="Educação, direitos e informação para todos">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ══ LOGIN ══ -->
+  <div class="screen on" id="s-login">
+    <div class="auth-bg">
+      <div class="auth-deco"></div>
+      <div class="login-card">
+        <div class="brand-logo">
+          <div class="brand-mark"><i class="ti ti-school"></i></div>
+          <div>
+            <h1 class="brand-name">Alloha <span>Edu</span></h1>
+            <p class="brand-tagline">Educação, direitos e informação</p>
+          </div>
+        </div>
+        <p class="auth-sub">Entre na sua conta para continuar</p>
+        <div class="field-group">
+          <label for="l-email">E-mail</label>
+          <div class="input-wrap"><i class="ti ti-mail"></i><input type="email" id="l-email" placeholder="seu@email.com" autocomplete="email"></div>
+        </div>
+        <div class="field-group">
+          <label for="l-pass">Senha</label>
+          <div class="input-wrap"><i class="ti ti-lock"></i><input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password"></div>
+        </div>
+        <button class="btn-primary" id="btn-login" onclick="doLogin()">
+          <span>Entrar</span><i class="ti ti-arrow-right"></i>
+        </button>
+        <div class="login-links">
+          <a href="#" onclick="return false" class="link-sm">Esqueci a senha</a>
+          <a href="#" onclick="showRegister();return false" class="link-sm">Criar conta</a>
+        </div>
+        <div class="divider"><span>ou continue com</span></div>
+        <div class="social-row">
+          <button class="btn-social" onclick="doLogin()"><i class="ti ti-brand-google"></i> Google</button>
+          <button class="btn-social" onclick="doLogin()"><i class="ti ti-brand-facebook"></i> Facebook</button>
+        </div>
+        <p class="register-link">Não tem conta? <a href="#" onclick="showRegister();return false">Cadastre-se grátis</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ REGISTER ══ -->
+  <div class="screen" id="s-register">
+    <div class="auth-bg">
+      <div class="auth-deco"></div>
+      <div class="login-card">
+        <div class="brand-logo">
+          <div class="brand-mark"><i class="ti ti-school"></i></div>
+          <div>
+            <h1 class="brand-name">Alloha <span>Edu</span></h1>
+            <p class="brand-tagline">Crie sua conta gratuita</p>
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="r-name">Nome completo</label>
+          <div class="input-wrap"><i class="ti ti-user"></i><input type="text" id="r-name" placeholder="Seu nome completo" autocomplete="name"></div>
+        </div>
+        <div class="field-group">
+          <label for="r-email">E-mail</label>
+          <div class="input-wrap"><i class="ti ti-mail"></i><input type="email" id="r-email" placeholder="seu@email.com" autocomplete="email"></div>
+        </div>
+        <div class="field-group">
+          <label for="r-pass">Senha</label>
+          <div class="input-wrap"><i class="ti ti-lock"></i><input type="password" id="r-pass" placeholder="Mínimo 6 caracteres" autocomplete="new-password"></div>
+        </div>
+        <button class="btn-primary" onclick="doRegister()"><span>Criar conta</span><i class="ti ti-arrow-right"></i></button>
+        <p class="register-link" style="margin-top:1rem">Já tem conta? <a href="#" onclick="goTo('s-login');return false">Entrar</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MAIN PORTAL ══ -->
+  <div class="screen" id="s-portal">
+    <header class="portal-header">
+      <div class="h-inner">
+        <div class="h-brand">
+          <div class="h-mark"><i class="ti ti-school"></i></div>
+          <div>
+            <h1 class="h-name">Alloha Edu</h1>
+            <p class="h-greeting" id="h-greeting">Bem-vindo(a)!</p>
+          </div>
+        </div>
+        <button class="avatar-btn" id="avatar-btn" onclick="toggleProfile()" aria-label="Abrir perfil" aria-expanded="false">
+          <span class="av-initials" id="av-initials">AE</span>
+        </button>
+      </div>
+      <nav class="tab-bar" role="tablist">
+        <button class="tab-btn active" role="tab" aria-selected="true" onclick="switchTab('cursos',this)"><i class="ti ti-books"></i><span>Cursos</span></button>
+        <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('noticias',this)"><i class="ti ti-brand-youtube"></i><span>Revista Global</span></button>
+        <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('crpir',this)"><i class="ti ti-shield-check"></i><span>CRPIR</span></button>
+        <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('eventos',this)"><i class="ti ti-calendar-event"></i><span>Eventos</span></button>
+      </nav>
+    </header>
+
+    <!-- Profile dropdown -->
+    <div class="profile-panel" id="profile-panel" role="dialog" aria-label="Perfil do usuário" hidden>
+      <div class="profile-top">
+        <div class="pav" id="pav-initials">AE</div>
+        <div>
+          <p class="pav-name" id="pav-name">Aluno Alloha</p>
+          <p class="pav-email" id="pav-email">aluno@alloha.edu</p>
+        </div>
+      </div>
+      <div class="prog-card">
+        <p class="prog-label">Progresso geral</p>
+        <p class="prog-pct" id="prog-pct">0%</p>
+        <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+        <p class="prog-sub" id="prog-sub">Nenhum curso iniciado</p>
+      </div>
+      <nav class="pnav">
+        <a href="#" onclick="return false"><i class="ti ti-user"></i>Meu perfil</a>
+        <a href="#" onclick="return false"><i class="ti ti-certificate"></i>Meus certificados</a>
+        <a href="#" onclick="return false"><i class="ti ti-bookmark"></i>Cursos salvos</a>
+        <a href="#" onclick="return false"><i class="ti ti-settings"></i>Configurações</a>
+        <a href="#" onclick="doLogout();return false" class="logout"><i class="ti ti-logout"></i>Sair</a>
+      </nav>
+    </div>
+
+    <main class="tab-content">
+
+      <!-- CURSOS -->
+      <section class="tab-panel on" id="tab-cursos" role="tabpanel">
+        <div class="section-head">
+          <h2>Cursos</h2>
+          <span class="count-badge" id="course-count">12 cursos</span>
+        </div>
+        <div class="search-row">
+          <i class="ti ti-search"></i>
+          <input type="search" id="course-search" placeholder="Buscar cursos..." oninput="renderCourses()" aria-label="Buscar cursos">
+        </div>
+        <div class="chip-row" id="cat-chips" role="group" aria-label="Filtrar por categoria">
+          <button class="chip on" onclick="setFilter('todos',this)">Todos</button>
+          <button class="chip" onclick="setFilter('direitos',this)">Direitos</button>
+          <button class="chip" onclick="setFilter('tecnologia',this)">Tecnologia</button>
+          <button class="chip" onclick="setFilter('cultura',this)">Cultura & História</button>
+          <button class="chip" onclick="setFilter('renda',this)">Trabalho & Renda</button>
+          <button class="chip" onclick="setFilter('saude',this)">Saúde</button>
+        </div>
+        <div class="courses-grid" id="courses-grid"></div>
+      </section>
+
+      <!-- REVISTA GLOBAL -->
+      <section class="tab-panel" id="tab-noticias" role="tabpanel">
+        <div class="yt-channel-bar">
+          <div class="yt-logo"><i class="ti ti-brand-youtube"></i></div>
+          <div class="yt-info">
+            <h3>Revista Global</h3>
+            <p>@RevistaGlobal_BR · Canal oficial</p>
+          </div>
+          <div class="live-badge"><span class="live-dot"></span>Ao vivo</div>
+          <a class="yt-ext-link" href="https://www.youtube.com/@RevistaGlobal_BR" target="_blank" rel="noopener">
+            <i class="ti ti-external-link"></i>Ver canal
+          </a>
+        </div>
+        <div class="chip-row" id="news-chips" role="group" aria-label="Filtrar notícias">
+          <button class="chip on" onclick="setNewsFilter('todos',this)">Todos</button>
+          <button class="chip" onclick="setNewsFilter('africa',this)">África</button>
+          <button class="chip" onclick="setNewsFilter('brasil',this)">Brasil</button>
+          <button class="chip" onclick="setNewsFilter('direitos',this)">Direitos</button>
+          <button class="chip" onclick="setNewsFilter('educacao',this)">Educação</button>
+        </div>
+        <div id="yt-feed" aria-live="polite">
+          <div class="loading-state"><i class="ti ti-loader spin"></i> Carregando vídeos...</div>
+        </div>
+      </section>
+
+      <!-- CRPIR -->
+      <section class="tab-panel" id="tab-crpir" role="tabpanel">
+        <div class="iframe-bar">
+          <i class="ti ti-shield-check"></i>
+          <span>Centro de Referência de Promoção da Igualdade Racial — São Paulo</span>
+          <a href="https://umojainfinity.github.io/crpir/" target="_blank" rel="noopener" class="ext-link">
+            <i class="ti ti-external-link"></i>Nova aba
+          </a>
+        </div>
+        <div class="iframe-wrap">
+          <iframe src="https://umojainfinity.github.io/crpir/" title="Portal CRPIR — Centro de Referência de Promoção da Igualdade Racial" loading="lazy" allow="same-origin"></iframe>
+        </div>
+      </section>
+
+      <!-- EVENTOS -->
+      <section class="tab-panel" id="tab-eventos" role="tabpanel">
+        <div class="events-toolbar">
+          <h2>Eventos & Agenda</h2>
+          <div class="month-nav">
+            <button onclick="changeMonth(-1)" aria-label="Mês anterior"><i class="ti ti-chevron-left"></i></button>
+            <span id="month-label">Junho 2026</span>
+            <button onclick="changeMonth(1)" aria-label="Próximo mês"><i class="ti ti-chevron-right"></i></button>
+          </div>
+        </div>
+        <div class="cal-wrap">
+          <div class="cal-grid" id="cal-grid" role="grid" aria-label="Calendário"></div>
+        </div>
+        <div class="events-list">
+          <h3 id="events-list-title">Eventos do mês</h3>
+          <div id="events-list"></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
