@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alloha Hub</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -16,8 +17,6 @@
         <div class="user-area" onclick="togglePerfil()">
             <span id="user-name">Carregando...</span>
             <div id="user-avatar" class="avatar">--</div>
-            
-            <!-- Painel de Perfil Dropdown -->
             <div id="painel-perfil" class="dropdown-perfil hidden">
                 <h4>Minha Conta</h4>
                 <p id="user-plano">Plano: --</p>
@@ -27,59 +26,103 @@
         </div>
     </header>
 
-    <!-- MENU DE ABAS PRINCIPAIS -->
-    <nav class="abas-navegacao">
-        <button class="tab-btn active" onclick="mudarAba('aba-acervo')">Biblioteca de Manuais</button>
-        <button class="tab-btn" onclick="mudarAba('aba-revista')">Revista Global & E-books</button>
-        <button class="tab-btn" onclick="mudarAba('aba-agenda')">Agenda & Eventos</button>
-    </nav>
-
-    <main class="conteudo-principal">
-        
-        <!-- ABA 1: ACERVO DIGITAL (PF / PJ) -->
-        <section id="aba-acervo" class="aba-conteudo">
-            <div class="topo-secao">
-                <h2>Biblioteca de Manuais e Guias Práticos</h2>
-                <p>Acervo digital de conteúdos interativos e relatórios analíticos para o seu desenvolvimento.</p>
-                
-                <!-- Filtros por Público e Categoria -->
-                <div class="filtros-container">
-                    <div class="grupo-filtro">
-                        <span class="label-filtro">Público:</span>
-                        <button class="filter-btn-publico active" onclick="filtrarPublico('Todos', this)">Todos</button>
-                        <button class="filter-btn-publico" onclick="filtrarPublico('PF', this)">Pessoa Física (PF)</button>
-                        <button class="filter-btn-publico" onclick="filtrarPublico('PJ', this)">Pessoa Jurídica (PJ)</button>
-                    </div>
+    <!-- PAINEL DINÂMICO DE ENGAJAMENTO (HOME HUB) -->
+    <section class="dashboard-dinamico">
+        <div class="info-widgets">
+            <div class="widget-item JSON-data">
+                <span class="widget-icon">📅</span>
+                <div>
+                    <h5 id="widget-data">17 de Junho de 2026</h5>
+                    <p id="widget-fato"><strong>Hoje na História:</strong> Em 1909, nascia Maria Lenk, ícone do esporte nacional.</p>
                 </div>
             </div>
-            
-            <div id="container-acervo" class="grid-acervo">
-                <!-- Inserido dinamicamente pelo app.js -->
+            <div class="widget-item JSON-clima">
+                <span class="widget-icon">☀️</span>
+                <div>
+                    <h5>São Paulo</h5>
+                    <p>24°C • Ensolarado</p>
+                </div>
             </div>
+            <div class="widget-item JSON-utilidade">
+                <span class="widget-icon">🚨</span>
+                <div>
+                    <h5>Utilidade Pública</h5>
+                    <p>Inscrições abertas para as oficinas de sábado nos Polos de Formação.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MANCHETE PRINCIPAL DO PORTAL -->
+        <div class="manchete-principal">
+            <span class="badge-tag">DESTAQUE EDITORIAL</span>
+            <h1>Revista Global lança relatório inédito sobre o impacto das novas tecnologias e geração de renda nas periferias paulistas</h1>
+            <p>Análise fundamentada traz dados públicos sobre a descentralização econômica e novos modelos de negócios para 2026.</p>
+        </div>
+    </section>
+
+    <!-- BOXES DE ENGAJAMENTO DOS CLIENTES (A Tração do Negócio) -->
+    <section class="secao-boxes">
+        <h2 class="titulo-chamada">O que você quer explorar hoje?</h2>
+        <div class="grid-boxes">
+            
+            <!-- Box 1: Notícias -->
+            <div class="box-card" onclick="ativarSecao('secao-noticias')">
+                <div class="box-icon">📰</div>
+                <h3>Notícias</h3>
+                <p>Revista Global — Saiba o que está acontecendo na sua cidade e no mundo.</p>
+                <span class="box-link">Acessar portal →</span>
+            </div>
+
+            <!-- Box 2: Manuais Práticos -->
+            <div class="box-card em-destaque" onclick="ativarSecao('secao-manuais')">
+                <div class="box-icon">📚</div>
+                <h3>Manuais Práticos</h3>
+                <p>Acervo digital de guias interativos divididos para o seu perfil e necessidade.</p>
+                <div class="botoes-sub-segmento">
+                    <button onclick="event.stopPropagation(); filtrarManuais('PF')">Para Você (PF)</button>
+                    <button onclick="event.stopPropagation(); filtrarManuais('PJ')">Para Empresas (PJ)</button>
+                </div>
+            </div>
+
+            <!-- Box 3: Cursos -->
+            <div class="box-card" onclick="ativarSecao('secao-cursos')">
+                <div class="box-icon">🚀</div>
+                <h3>Cursos</h3>
+                <p>Aprimore seu conhecimento, desenvolva novas habilidades e conquiste o mercado.</p>
+                <span class="box-link">Ver trilhas →</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CONTEÚDO DINÂMICO EXPANSÍVEL (Abaixo dos Boxes) -->
+    <main class="conteudo-hub">
+        
+        <!-- SUB-SEÇÃO: MANUAIS PRÁTICOS (Oculta até clicar) -->
+        <section id="secao-manuais" class="sub-secao hidden">
+            <div class="topo-sub">
+                <h2 id="titulo-segmento">Manuais e Guias Práticos</h2>
+                <button class="btn-fechar" onclick="fecharSecoes()">✕ Fechar</button>
+            </div>
+            <div id="container-manuais" class="grid-acervo-cards"></div>
         </section>
 
-        <!-- ABA 2: REVISTA GLOBAL (CONTEÚDO EDITORIAL) -->
-        <section id="aba-revista" class="aba-conteudo hidden">
-            <h2>Revista Global - Acervo Editorial Imune</h2>
-            <p>Acesse edições periódicas, relatórios de pesquisa e o feed audiovisual.</p>
-            
-            <h3>📰 Revistas Digitais Periódicas (PDF)</h3>
-            <div id="secao-revistas" class="lista-revistas"></div>
-            
-            <h3>📚 E-books e Dossiês</h3>
-            <div id="secao-ebooks" class="grid-ebooks"></div>
-            
-            <h3>📺 Painel Audiovisual (YouTube)</h3>
-            <div id="secao-videos" class="lista-videos"></div>
+        <!-- SUB-SEÇÃO: NOTÍCIAS / REVISTA GLOBAL -->
+        <section id="secao-noticias" class="sub-secao hidden">
+            <div class="topo-sub">
+                <h2>Revista Global — Feed Editorial</h2>
+                <button class="btn-fechar" onclick="fecharSecoes()">✕ Fechar</button>
+            </div>
+            <div id="container-noticias" class="grid-noticias-layout"></div>
         </section>
 
-        <!-- ABA 3: AGENDA & EVENTOS -->
-        <section id="aba-agenda" class="aba-conteudo hidden">
-            <h2>Agenda de Eventos e Workshops</h2>
-            <p>Acompanhe os fóruns integrados e as transmissões ao vivo ao longo do mês.</p>
-            <div id="container-agenda" class="lista-agenda">
-                <!-- Inserido dinamicamente pelo app.js -->
+        <!-- SUB-SEÇÃO: CURSOS -->
+        <section id="secao-cursos" class="sub-secao hidden">
+            <div class="topo-sub">
+                <h2>Trilhas de Aprimoramento Conquiste o Mercado</h2>
+                <button class="btn-fechar" onclick="fecharSecoes()">✕ Fechar</button>
             </div>
+            <div id="container-cursos" class="grid-acervo-cards"></div>
         </section>
 
     </main>
